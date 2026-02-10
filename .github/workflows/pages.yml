@@ -21,17 +21,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install
-        working-directory: ddl-calendar
         run: npm ci || npm i
 
       - name: Build
-        working-directory: ddl-calendar
         env:
           # GitHub Pages project site base path: /<repo>/
           VITE_BASE: /${{ github.event.repository.name }}/
@@ -40,7 +41,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ddl-calendar/dist
+          path: dist
 
   deploy:
     runs-on: ubuntu-latest
