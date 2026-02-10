@@ -1,0 +1,38 @@
+# 站点配置 + 数据（纯前端从此文件加载）
+site:
+  title: "DDL Calendar"
+  subtitle: "YAML-configurable deadlines calendar"
+  timezone: "UTC"
+  show_timezone_toggle: true
+  footer:
+    left: "Data via YAML. Deploy on GitHub Pages."
+    right: "Edit public/deadlines.yaml"
+
+# items: 每个条目会在“日历”上标记 deadline；start/end 用于会期展示（可选）
+items:
+  - id: "iclr-2026"
+    title: "International Conference on Learning Representations"
+    acronym: "ICLR"
+    year: 2026
+    venue: "ICLR"
+    tags: ["ML", "DL"]
+    url: "https://iclr.cc/"
+    location: "TBD"
+    deadline: "2025-09-27 23:59"
+    timezone: "AoE"
+    start: "2026-05-01"
+    end: "2026-05-05"
+    note: "Example entry. Replace with your own."
+
+  - id: "neurips-2026"
+    title: "Neural Information Processing Systems"
+    acronym: "NeurIPS"
+    year: 2026
+    venue: "NeurIPS"
+    tags: ["ML"]
+    url: "https://neurips.cc/"
+    location: "TBD"
+    deadline: "2026-05-15 20:00"
+    timezone: "America/Los_Angeles"
+    note: "IANA timezone supported."
+
