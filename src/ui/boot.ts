@@ -10,6 +10,10 @@ export async function boot(root: HTMLElement) {
   root.innerHTML = `<div class="wrap">
     <div class="top">
       <div class="brand">
+        <a class="homeLink" href="${esc(resolveHomeUrl())}">
+          <span aria-hidden="true">&larr;</span>
+          <span>Home</span>
+        </a>
         <h1 class="title">DDL Calendar</h1>
         <div class="subtitle">Loading...</div>
       </div>
@@ -242,6 +246,16 @@ function resolveDeadlinesUrl(): string {
   }
 
   return "deadlines.yaml";
+}
+
+function resolveHomeUrl(): string {
+  const configuredUrl = import.meta.env.VITE_HOME_URL;
+
+  if (typeof configuredUrl === "string" && configuredUrl.trim() !== "") {
+    return configuredUrl.trim();
+  }
+
+  return "../";
 }
 
 function rebuildFacetOptions(items: NormalizedItem[], elVenue: HTMLSelectElement, elTag: HTMLSelectElement) {
