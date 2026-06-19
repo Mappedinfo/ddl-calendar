@@ -123,9 +123,7 @@ export async function boot(root: HTMLElement) {
     try {
       elErr.style.display = "none";
       elSubtitle.textContent = "Loading YAML...";
-      // GH Pages project sites live under a base path (e.g. /<repo>/).
-      // Use BASE_URL so `deadlines.yaml` resolves correctly everywhere.
-      const yamlUrl = resolvePublicUrl("deadlines.yaml");
+      const yamlUrl = resolveDeadlinesUrl();
       const data = await loadYaml(yamlUrl);
       site = data.site;
       allItems = data.items;
@@ -236,12 +234,14 @@ export async function boot(root: HTMLElement) {
   await reload();
 }
 
-function resolvePublicUrl(pathname: string): string {
-  // Vite's BASE_URL is typically a pathname like "/" or "/<repo>/".
-  // `new URL(rel, base)` requires an absolute base URL in browsers, so anchor it to location.origin.
-  const basePath = import.meta.env.BASE_URL || "/";
-  const absBase = new URL(basePath, window.location.origin);
-  return new URL(pathname, absBase).toString();
+function resolveDeadlinesUrl(): string {
+  const configuredUrl = import.meta.env.VITE_DEADLINES_URL;
+
+  if (typeof configuredUrl === "string" && configuredUrl.trim() !== "") {
+    return configuredUrl.trim();
+  }
+
+  return "deadlines.yaml";
 }
 
 function rebuildFacetOptions(items: NormalizedItem[], elVenue: HTMLSelectElement, elTag: HTMLSelectElement) {
